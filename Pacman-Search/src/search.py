@@ -110,8 +110,6 @@ def depthFirstSearch(problem):
     return final_actions
 
 
-
-
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     fringe = util.Queue()
@@ -138,8 +136,27 @@ def breadthFirstSearch(problem):
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    fringe = util.PriorityQueue()
+    is_visited = {}
+    paths = util.PriorityQueue()
+    final_actions = []
+    fringe.push(problem.getStartState(), 0)
+    paths.push([], 0)
+
+    while not fringe.isEmpty():
+        current_state = fringe.pop()
+        current_path = paths.pop()
+        is_visited[current_state] = True
+        if problem.isGoalState(current_state):
+            final_actions = current_path
+            break
+        successors = problem.getSuccessors(current_state)
+        for successor in successors:
+            if not successor[0] in is_visited.keys():
+                path_cost = problem.getCostOfActions(current_path + [successor[1]])
+                fringe.push(successor[0], path_cost)
+                paths.push(current_path + [successor[1]], path_cost)
+    return final_actions
 
 
 def nullHeuristic(state, problem=None):
