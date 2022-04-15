@@ -88,14 +88,52 @@ def depthFirstSearch(problem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    fringe = util.Stack()
+    is_visited = {}
+    paths = util.Stack()
+    final_actions = []
+    fringe.push(problem.getStartState())
+    paths.push([])
+
+    while not fringe.isEmpty():
+        current_state = fringe.pop()
+        current_path = paths.pop()
+        is_visited[current_state] = True
+        if problem.isGoalState(current_state):
+            final_actions = current_path
+            break
+        successors = problem.getSuccessors(current_state)
+        for successor in successors:
+            if not successor[0] in is_visited.keys():
+                fringe.push(successor[0])
+                paths.push(current_path + [successor[1]])
+    return final_actions
+
+
 
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    fringe = util.Queue()
+    is_visited = {}
+    paths = util.Queue()
+    final_actions = []
+    fringe.push(problem.getStartState())
+    paths.push([])
+
+    while not fringe.isEmpty():
+        current_state = fringe.pop()
+        current_path = paths.pop()
+        is_visited[current_state] = True
+        if problem.isGoalState(current_state):
+            final_actions = current_path
+            break
+        successors = problem.getSuccessors(current_state)
+        for successor in successors:
+            if not successor[0] in is_visited.keys():
+                fringe.push(successor[0])
+                paths.push(current_path + [successor[1]])
+    return final_actions
 
 
 def uniformCostSearch(problem):
