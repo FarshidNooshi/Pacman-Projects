@@ -113,7 +113,7 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     fringe = util.Queue()
-    is_visited = {}
+    is_visited = []
     paths = util.Queue()
     final_actions = []
     fringe.push(problem.getStartState())
@@ -122,13 +122,13 @@ def breadthFirstSearch(problem):
     while not fringe.isEmpty():
         current_state = fringe.pop()
         current_path = paths.pop()
-        is_visited[current_state] = True
+        is_visited.append(current_state)
         if problem.isGoalState(current_state):
             final_actions = current_path
             break
         successors = problem.getSuccessors(current_state)
         for successor in successors:
-            if not successor[0] in is_visited.keys():
+            if not successor[0] in is_visited:
                 fringe.push(successor[0])
                 paths.push(current_path + [successor[1]])
     return final_actions
