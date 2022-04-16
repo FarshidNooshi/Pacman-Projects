@@ -89,8 +89,8 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     fringe = util.Stack()
-    is_visited = {}
     paths = util.Stack()
+    is_visited = []
     final_actions = []
     fringe.push(problem.getStartState())
     paths.push([])
@@ -98,13 +98,15 @@ def depthFirstSearch(problem):
     while not fringe.isEmpty():
         current_state = fringe.pop()
         current_path = paths.pop()
-        is_visited[current_state] = True
+        if current_state in is_visited:
+            continue
+        is_visited.append(current_state)
         if problem.isGoalState(current_state):
             final_actions = current_path
             break
         successors = problem.getSuccessors(current_state)
         for successor in successors:
-            if not successor[0] in is_visited.keys():
+            if successor[0] not in is_visited:
                 fringe.push(successor[0])
                 paths.push(current_path + [successor[1]])
     return final_actions
@@ -113,8 +115,8 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     fringe = util.Queue()
-    is_visited = []
     paths = util.Queue()
+    is_visited = []
     final_actions = []
     fringe.push(problem.getStartState())
     paths.push([])
@@ -122,13 +124,15 @@ def breadthFirstSearch(problem):
     while not fringe.isEmpty():
         current_state = fringe.pop()
         current_path = paths.pop()
+        if current_state in is_visited:
+            continue
         is_visited.append(current_state)
         if problem.isGoalState(current_state):
             final_actions = current_path
             break
         successors = problem.getSuccessors(current_state)
         for successor in successors:
-            if not successor[0] in is_visited:
+            if successor[0] not in is_visited:
                 fringe.push(successor[0])
                 paths.push(current_path + [successor[1]])
     return final_actions
@@ -137,8 +141,8 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     fringe = util.PriorityQueue()
-    is_visited = {}
     paths = util.PriorityQueue()
+    is_visited = []
     final_actions = []
     fringe.push(problem.getStartState(), 0)
     paths.push([], 0)
@@ -146,13 +150,15 @@ def uniformCostSearch(problem):
     while not fringe.isEmpty():
         current_state = fringe.pop()
         current_path = paths.pop()
-        is_visited[current_state] = True
+        if current_state in is_visited:
+            continue
+        is_visited.append(current_state)
         if problem.isGoalState(current_state):
             final_actions = current_path
             break
         successors = problem.getSuccessors(current_state)
         for successor in successors:
-            if not successor[0] in is_visited.keys():
+            if successor[0] not in is_visited:
                 path_cost = problem.getCostOfActions(current_path + [successor[1]])
                 fringe.push(successor[0], path_cost)
                 paths.push(current_path + [successor[1]], path_cost)
@@ -169,10 +175,9 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    from searchAgents import manhattanHeuristic
     fringe = util.PriorityQueue()
-    is_visited = {}
     paths = util.PriorityQueue()
+    is_visited = []
     final_actions = []
     fringe.push(problem.getStartState(), 0)
     paths.push([], 0)
@@ -180,15 +185,17 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     while not fringe.isEmpty():
         current_state = fringe.pop()
         current_path = paths.pop()
-        is_visited[current_state] = True
+        if current_state in is_visited:
+            continue
+        is_visited.append(current_state)
         if problem.isGoalState(current_state):
             final_actions = current_path
             break
         successors = problem.getSuccessors(current_state)
         for successor in successors:
-            if not successor[0] in is_visited.keys():
-                path_cost = problem.getCostOfActions(current_path + [successor[1]])
-                final_cost = path_cost + manhattanHeuristic(successor[0], problem)
+            path_cost = problem.getCostOfActions(current_path + [successor[1]])
+            final_cost = path_cost + heuristic(successor[0], problem)
+            if successor[0] not in is_visited:
                 fringe.push(successor[0], final_cost)
                 paths.push(current_path + [successor[1]], final_cost)
     return final_actions

@@ -297,6 +297,7 @@ class CornersProblem(search.SearchProblem):
         self._expanded = 0  # DO NOT CHANGE; Number of search nodes expanded
         # Please add any code here which you would like to use
         # in initializing the problem
+        self.startingGameState = startingGameState
 
     def getStartState(self):
         """
@@ -335,8 +336,8 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             successor_position = (nextx, nexty)
-            hitsWall = self.walls[nextx][nexty]
-            if not hitsWall:
+            hits_wall = self.walls[nextx][nexty]
+            if not hits_wall:
                 successor_visited_corners = list(visited_corners)
                 if successor_position in self.corners and successor_position not in visited_corners:
                     successor_visited_corners.append(successor_position)
@@ -376,8 +377,13 @@ def cornersHeuristic(state, problem):
     walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    return 0  # Default to trivial solution
-
+    position = state[0]
+    visited_corners = state[1]
+    unvisited_corners = [corner for corner in corners if corner not in visited_corners]
+    result = 0
+    for unvisited_corner in unvisited_corners:
+        result = max(result, mazeDistance(position, unvisited_corner, problem.startingGameState))
+    return result
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -477,7 +483,10 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    result = 0
+    for cell in foodGrid.asList():
+        result = max(result, mazeDistance(position, cell, problem.startingGameState))
+    return result
 
 
 class ClosestDotSearchAgent(SearchAgent):
