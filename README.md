@@ -1,2 +1,2 @@
 # Artificial-Intelligence
-Artificial intelligence AUT course
+Artificial intelligence AUT course project
