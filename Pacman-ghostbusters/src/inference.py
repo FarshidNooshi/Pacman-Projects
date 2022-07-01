@@ -437,6 +437,7 @@ class JointParticleFilter(ParticleFilter):
     """
 
     def __init__(self, numParticles=600):
+        self.particles = []  # List of tuples of particle positions
         self.setNumParticles(numParticles)
 
     def initialize(self, gameState, legalPositions):
@@ -502,24 +503,21 @@ class JointParticleFilter(ParticleFilter):
         numParticles = self.numParticles
 
         for particle in particles:
-            manNoisy = float(1)
-            numGhosts = self.numGhosts
-            for ghost in range(numGhosts):
-                pacmanPos = gameState.getPacmanPosition()
-                jailPos = self.getJailPosition(ghost)
-                manNoisy = manNoisy * self.getObservationProb(observation[ghost], pacmanPos, particle[ghost], jailPos)
-            dd[particle] += manNoisy
+            pacmanPos = gameState.getPacmanPosition()
+            jailPos = self.getJailPosition(self.numGhosts)
+            noisyDistance = 1.
+            for i in range(self.numGhosts):
+                noisyDistance = noisyDistance * self.getObservationProb(observation[i], pacmanPos, particle[i], jailPos)
+            dd[particle] += noisyDistance
 
         disValues = dd.values()
         for value in disValues:
             if value != 0:
                 tempBool = False
 
-        unfrmly = self.initializeUniformly(gameState)
+        self.initializeUniformly(gameState)
         if not tempBool:
-            self.particles = [dd.sample() for none in range(numParticles)]
-        else:
-            unfrmly
+            self.particles = [dd.sample() for _ in range(numParticles)]
 
     def elapseTime(self, gameState):
         """
