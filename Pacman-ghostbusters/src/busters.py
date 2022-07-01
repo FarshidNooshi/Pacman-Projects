@@ -20,19 +20,14 @@ readings to each remaining ghost.
 To play your first game, type 'python pacman.py' from the command line.
 The keys are 'a', 's', 'd', and 'w' to move (or arrow keys).  Have fun!
 """
-import layout
-import os
-import random
-import sys
-import util
-
+from game import GameStateData
+from game import Game
+from game import Directions
 from game import Actions
 from game import Configuration
-from game import Directions
-from game import Game
-from game import GameStateData
-from util import manhattanDistance
 from util import nearestPoint
+from util import manhattanDistance
+import sys, util, types, time, random, layout, os
 
 ########################################
 # Parameters for noisy sensor readings #
