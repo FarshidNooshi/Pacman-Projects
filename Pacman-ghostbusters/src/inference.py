@@ -457,8 +457,8 @@ class JointParticleFilter(ParticleFilter):
         numGhosts = self.numGhosts
         self.particles = []
 
-        dp = itertools.product(legalPos, repeat=numGhosts)
-        particles = list(dp)
+        permutations = itertools.product(legalPos, repeat=numGhosts)
+        particles = list(permutations)
         random.shuffle(particles)
         self.particles = particles
 
