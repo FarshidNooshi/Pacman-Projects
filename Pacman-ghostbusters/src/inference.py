@@ -391,7 +391,7 @@ class ParticleFilter(InferenceModule):
 
         disValues = dd.values()
         for val in disValues:
-            if val is not 0:
+            if val != 0:
                 temp = False
 
         unfrmly = self.initializeUniformly(gameState)
@@ -497,25 +497,26 @@ class JointParticleFilter(ParticleFilter):
         the DiscreteDistribution may be useful.
         """
         "*** YOUR CODE HERE ***"
-        discrete_distribution_belief = DiscreteDistribution()
+        discrete_distribution = DiscreteDistribution()
         is_all_zero = True
         particles = self.particles
-
         pacmanPos = gameState.getPacmanPosition()
         jailPos = self.getJailPosition(self.numGhosts)
-        for particle in particles:
-            prob = 1.
-            for i in range(self.numGhosts):
-                prob = self.getObservationProb(observation[i], pacmanPos, particle[i], jailPos)
-            discrete_distribution_belief[particle] += prob
 
-        belief_values = discrete_distribution_belief.values()
+        for particle in particles:
+            prob = float(1)
+            for i in range(self.numGhosts):
+                prob *= self.getObservationProb(observation[i], pacmanPos, particle[i], jailPos)
+            discrete_distribution[particle] += prob
+
+        belief_values = discrete_distribution.values()
         for value in belief_values:
             if value != 0:
                 is_all_zero = False
 
-        if is_all_zero:
-            self.initializeUniformly(gameState)
+        self.initializeUniformly(gameState)
+        if not is_all_zero:
+            self.particles = [discrete_distribution.sample() for none in range(self.numParticles)]
 
     def elapseTime(self, gameState):
         """
