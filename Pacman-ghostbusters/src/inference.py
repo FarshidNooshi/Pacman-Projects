@@ -79,9 +79,10 @@ class DiscreteDistribution(dict):
         selfTotal = self.total()
         selfKeys = self.keys()
 
+        if selfTotal == float(0):
+            return
+
         for key in selfKeys:
-            if selfTotal == float(0):
-                return
             self[key] = float(self[key]) / selfTotal
 
     def sample(self):
@@ -110,14 +111,10 @@ class DiscreteDistribution(dict):
         selfItems = self.items()
         example = 0
         randVar = random.uniform(example, selfTotal)
-
-        for i, j in selfItems:
-            if randVar >= example + j:
-                pass
-            else:
-                return i
-
-            example += j
+        for key, value in selfItems:
+            example += value
+            if example >= randVar:
+                return key
 
 
 class InferenceModule:
@@ -188,7 +185,7 @@ class InferenceModule:
         Return the probability P(noisyDistance | pacmanPosition, ghostPosition).
         """
         "*** YOUR CODE HERE ***"
-        if noisyDistance == None:
+        if noisyDistance is None:
             if ghostPosition == jailPosition:
                 return 1
             return 0
