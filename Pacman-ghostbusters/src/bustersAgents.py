@@ -12,12 +12,11 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
-import util
-from game import Agent
-from game import Directions
-from keyboardAgents import KeyboardAgent
-import inference
 import busters
+import inference
+import util
+from keyboardAgents import KeyboardAgent
+
 
 class NullGraphics:
     "Placeholder for graphics"
@@ -120,7 +119,6 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
         return KeyboardAgent.getAction(self, gameState)
 
 from distanceCalculator import Distancer
-from game import Actions
 from game import Directions
 
 class GreedyBustersAgent(BustersAgent):

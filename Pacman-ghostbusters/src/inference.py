@@ -12,12 +12,9 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
-import itertools
-import random
-import busters
 import game
 
-from util import manhattanDistance, raiseNotDefined
+from util import raiseNotDefined
 
 
 class DiscreteDistribution(dict):
