@@ -12,12 +12,10 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
-import util
-from game import Agent
-from game import Directions
-from keyboardAgents import KeyboardAgent
-import inference
 import busters
+import inference
+import util
+from keyboardAgents import KeyboardAgent
 
 
 class NullGraphics:
@@ -151,23 +149,22 @@ class GreedyBustersAgent(BustersAgent):
         Pacman closest to the closest ghost (according to mazeDistance!).
         """
         pacmanPosition = gameState.getPacmanPosition()
-        legal = [a for a in gameState.getLegalPacmanActions()]
+        legal_actions = [action for action in gameState.getLegalPacmanActions()]
         livingGhosts = gameState.getLivingGhosts()
         livingGhostPositionDistributions = \
             [beliefs for i, beliefs in enumerate(self.ghostBeliefs)
              if livingGhosts[i + 1]]
         "*** YOUR CODE HERE ***"
         distance = 0
+        closestPosition = None
         for position in livingGhostPositionDistributions:
-            if self.distancer.getDistance(pacmanPosition, position.argMax()) < distance or not distance:
+            if distance == 0 or self.distancer.getDistance(pacmanPosition, position.argMax()) < distance:
                 closestPosition = position.argMax()
                 distance = self.distancer.getDistance(pacmanPosition, position.argMax())
-            if self.distancer.getDistance(pacmanPosition, position.argMax()) >= distance:
-                distance = 0
 
-        for actions in legal:
-            if self.distancer.getDistance(Actions.getSuccessor(pacmanPosition, actions),
-                                          closestPosition) < distance or not distance:
-                agentAction = actions
-                distance = self.distancer.getDistance(Actions.getSuccessor(pacmanPosition, actions), closestPosition)
-        return agentAction
+        actionToReturn = None
+        for action in legal_actions:
+            if self.distancer.getDistance(Actions.getSuccessor(pacmanPosition, action), closestPosition) <= distance:
+                actionToReturn = action
+                distance = self.distancer.getDistance(Actions.getSuccessor(pacmanPosition, action), closestPosition)
+        return actionToReturn
