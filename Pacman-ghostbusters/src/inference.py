@@ -299,18 +299,17 @@ class ExactInference(InferenceModule):
         current position. However, this is not a problem, as Pacman's current
         position is known.
         """
-        "*** YOUR CODE HERE ***"
         pos = self.allPositions
-        selfB = self.beliefs.copy()
+        new_self_beliefs = self.beliefs.copy()
         pacmanPos = gameState.getPacmanPosition()
         jailPos = self.getJailPosition()
 
         for positions in pos:
-            selfB[positions] = self.getObservationProb(observation, pacmanPos, positions, jailPos) * self.beliefs[
-                positions]
-        self.beliefs = selfB
+            new_self_beliefs[positions] = self.getObservationProb(observation, pacmanPos, positions, jailPos) * \
+                                          self.beliefs[positions]
+        new_self_beliefs.normalize()
 
-        self.beliefs.normalize()
+        self.beliefs = new_self_beliefs
 
     def elapseTime(self, gameState):
         """
@@ -326,8 +325,8 @@ class ExactInference(InferenceModule):
         dd = DiscreteDistribution()
 
         for key in selfKeys:
-            for pos in self.getPositionDistribution(gameState, key).keys():
-                dd[pos] = dd[pos] + self.getPositionDistribution(gameState, key)[pos] * self.beliefs[key]
+            for newPos, prob in self.getPositionDistribution(gameState, key).items():
+                dd[newPos] += self.beliefs[key] * prob
 
         self.beliefs = dd
         self.beliefs.normalize()
