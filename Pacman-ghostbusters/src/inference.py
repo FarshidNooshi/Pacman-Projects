@@ -402,10 +402,10 @@ class ParticleFilter(InferenceModule):
         gameState.
         """
         "*** YOUR CODE HERE ***"
-        particles = enumerate(self.particles)
         dd = []
-        for particleX, particleY in particles:
-            dd.append(self.getPositionDistribution(gameState, particleY).sample())
+        for index, particle in enumerate(self.particles):
+            dd.append(self.getPositionDistribution(gameState, particle).sample())
+
         self.particles = dd
 
     def getBeliefDistribution(self):
