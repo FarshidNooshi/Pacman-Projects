@@ -493,26 +493,26 @@ class JointParticleFilter(ParticleFilter):
         the DiscreteDistribution may be useful.
         """
         "*** YOUR CODE HERE ***"
-        discrete_distribution = DiscreteDistribution()
+        distribution = DiscreteDistribution()
         is_all_zero = True
         particles = self.particles
         pacmanPos = gameState.getPacmanPosition()
         jailPos = self.getJailPosition(self.numGhosts)
 
         for particle in particles:
-            prob = float(1)
+            prob = 1.
             for i in range(self.numGhosts):
                 prob *= self.getObservationProb(observation[i], pacmanPos, particle[i], jailPos)
-            discrete_distribution[particle] += prob
+            distribution[particle] += prob
 
-        belief_values = discrete_distribution.values()
+        belief_values = distribution.values()
         for value in belief_values:
             if value != 0:
                 is_all_zero = False
 
         self.initializeUniformly(gameState)
         if not is_all_zero:
-            self.particles = [discrete_distribution.sample() for none in range(self.numParticles)]
+            self.particles = [distribution.sample() for none in range(self.numParticles)]
 
     def elapseTime(self, gameState):
         """
