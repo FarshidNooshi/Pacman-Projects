@@ -2,7 +2,7 @@
   <h1>In The Name Of GOD</h1>
 </div>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: APACHE-2.0](https://img.shields.io/github/license/FarshidNooshi/Pacman-Projects)](https://opensource.org/licenses/Apache-2.0)
 # Pacman Projects
 
 <p align="center">
