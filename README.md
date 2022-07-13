@@ -3,18 +3,22 @@
 </div>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-# Pacman projects
-
-I have completed four [Pacman projects](http://ai.berkeley.edu/project_overview.html) of the UC Berkeley CS188 Intro to AI course for my university course project at the Amirkabir University of Technology, and you can find my solutions in this repository.  
+# Pacman Projects
 
 <p align="center">
-<p align="center">
-<img src="https://upload.wikimedia.org/wikipedia/el/0/00/Pac-Man.png"> <br />
-</p><br />
+<img src="http://ai.berkeley.edu/images/pacman_game.gif" width="540px">
+</p>
 
-## Links
-- http://ai.berkeley.edu/search.html
-- http://ai.berkeley.edu/multiagent.html
+This repository conatains my univerisity projects for my ***Principles & Applications of Artificial Intelligence*** course at the Amirkabir University of Technology. Here I have completed four [Pacman projects](http://ai.berkeley.edu/project_overview.html) of the UC Berkeley CS188 Intro to AI course.
+
+## Projects
+* Project 1: [Search](http://ai.berkeley.edu/search.html)
+* Project 2: [Multi-Agent Search](http://ai.berkeley.edu/multiagent.html)
+* Project 3: [Reinforcement Learning](http://ai.berkeley.edu/reinforcement.html)
+* Project 4: [Ghostbusters](http://ai.berkeley.edu/tracking.html)
+
+## Principles & Applications of Artificial Intelligence
+The ***Principles & Applications of Artificial Intelligence*** course in Spring 2022 at the Computer Engineering Department in Amirkabir University of Technology is taught by: Asst. Prof. [Mahdi Javanmardi](https://scholar.google.co.jp/citations?user=6Za8HuYAAAAJ&hl=en)
 
 ## Author
 * [Farshid Nooshi](https://ce.aut.ac.ir/~Farshid_Nooshi) 
