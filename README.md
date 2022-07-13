@@ -3,6 +3,7 @@
 </div>
 
 [![License: APACHE-2.0](https://img.shields.io/github/license/FarshidNooshi/Pacman-Projects)](https://opensource.org/licenses/Apache-2.0)
+![GitHub contributors](https://img.shields.io/github/contributors/FarshidNooshi/Pacman-Projects)
 # Pacman Projects
 
 <p align="center">
