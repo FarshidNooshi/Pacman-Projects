@@ -9,7 +9,7 @@
 <img src="http://ai.berkeley.edu/images/pacman_game.gif" width="540px">
 </p>
 
-This repository conatains my univerisity projects for my ***Principles & Applications of Artificial Intelligence*** course at the Amirkabir University of Technology. Here I have completed four [Pacman projects](http://ai.berkeley.edu/project_overview.html) of the UC Berkeley CS188 Intro to AI course.
+This repository conatains my univerisity projects for my ***Principles & Applications of Artificial Intelligence*** course at the Amirkabir University of Technology. Here I have completed **four** [Pacman projects](http://ai.berkeley.edu/project_overview.html) of the UC Berkeley CS188 Intro to AI course.
 
 ## Projects
 * Project 1: [Search](http://ai.berkeley.edu/search.html)
